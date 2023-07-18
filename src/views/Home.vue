@@ -73,13 +73,14 @@
           <div class="col-lg-4 col-sm-6 mb-4" v-for="nw in news" :key="nw.id">
             <div class="card">
               <img
-                :src="nw.avatar"
+                :src="nw.image"
                 class="card-img-top"
                 alt="..."
+                style="height:260px;"
               />
-              <div class="card-body text-start">
+              <div class="card-body text-start" style="min-height:200px">
                 <h5 class="card-title">
-                  {{ nw.employment.title }}
+                  {{ nw.title }}
                 </h5>
                 <p class="card-text"></p>
                 <a href="#!" class="btn btn-info">อ่านต่อ</a>
@@ -263,11 +264,13 @@ export default defineComponent({
     async function getRandomUser() {
       try {
         const data = await axios.get(
-          "https://random-data-api.com/api/v2/users?size=5"
+            "https://gnews.io/api/v4/search?q=example&lang=th&country=th&max=6&apikey=748487b92e72ff359748e9454c5363fb"
+        //   "https://random-data-api.com/api/v2/users?size=5"
         );
-        news.value = data.data;
+        console.log(data);
+        news.value = data.data.articles;
         news.value.forEach((element) => {
-          console.log(element);
+          console.log(element.title);
         });
       } catch (err) {
         console.log("error: ", err);
